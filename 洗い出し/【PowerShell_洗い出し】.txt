@@ -1,0 +1,608 @@
+【PowerShell_洗い出し】
+
+------------------------------------------------------------------------------------------------------------------------
+概要
+　　いきなり自分よう整理を行なうのではなく、まずは本のまとめをしながら読み進めていく
+　　何をやったかを忘れないようにしていくやり方
+
+　　技術書は所詮たいしたこと自体がだらだら書いてあるわけではなく、たいした事プラスとにかく説明であるあの
+　　感覚を忘れずに
+
+　　こんなことができるよ、こんな特徴があるよ、は割とどうでもよくて実際に"どうやってやるのか"が大事
+
+------------------------------------------------------------------------------------------------------------------------
+内容
+
+Windows PowerShell Basics
+　　Introducing Windws PowerShell
+　　　　PowerShell のパイプはテキスト渡しではなくオブジェクト渡し
+
+　　　　cmd.exeとpowershellの違い
+　　　　　　正規表現
+　　　　　　例外ハンドル
+　　　　　　配列サポート
+　　　　　　関数
+　　　　　　Script Signing
+　　　　　　タブ補完機能(cmdでも一部あり)
+
+　　　　PowerShellのバージョン
+　　　　　　PowerShell 1.0
+　　　　　　　　XP SP2/SP3, Vista, Windows Server 2003, Windows Server 2008
+
+　　　　　　PowerShell 2.0
+　　　　　　　　7, XP SP3, Windows Server 2003 SP2, Vista SP1
+
+　　　　　　PowerShell 3.0
+　　　　　　PowerShell 4.0
+
+　　　　PowerShellのバージョン確認
+　　　　　「$PSVersionTable」
+
+　　　　Update-Helpコマンド
+　　　　　　3.0や4.0から
+
+　　　　デフォルト設定ではPowerShellのスクリプトは実行できない
+　　　　　　変更はその他欄
+
+　　　　powershellの一時的ダウングレード
+　　　　　「PowerShell -version 2.0」
+
+　　　　WinRM(Windows Remote Management)
+　　　　　　起動
+　　　　　　　「Enable-PSRemoting」
+
+　　　　　　Statusの確認
+　　　　　　　「Get-Service winrm」
+
+　　　　　　概要
+　　　　　　　　ポート80番を使って通信
+
+　　　　ヘルプコマンド
+　　　　　「Get-Help ～」
+
+　　　　　　オプション
+　　　　　　　　-Examples : 例のみ
+　　　　　　　　-Full     : 全部
+
+　　　　フォルダーのコンテンツを取り扱う
+　　　　　「Get-ChildItem」
+
+　　　　見つけられる限りの.exeファイルをリスト
+　　　　　「Get-Command .exe」
+
+　　　　現在動いているプロセスの表示
+　　　　　「Get-Process」
+
+　　　　　　名前指定
+　　　　　　　「Get-Process -ProcessName [プロセス名]」
+
+　　　　　　所有者の表示(4.0)
+　　　　　　　「Get-Process win* -IncludeUserName」
+
+　　　　打ち掛け途中でも一意に名前が判別できるものであれば実行される(パラメーターのみ)
+　　　　　　パラメーター
+　　　　　　　　-で指定されるオプション
+
+　　　　　「Get-Process -ProcessN [プロセス名]」
+
+　　　　PowerShellのパターンマッチング
+　　　　　　* → 任意の文字列
+　　　　　　? → 任意の一文字
+
+　　　　オブジェクトパイピング
+　　　　　　パイプでオブジェクトを渡すこと
+
+　　　　画面クリア
+　　　　　「Clear-Host」or「cls」or「clear」
+
+　　Interacting with the PowerShell Console Window and Integrated Scripting Enviroment
+　　　　ショートカット作成
+　　　　作業フォルダの設定
+　　　　各種プロパティの設定
+
+　　　　作業フォルダ内での設定の読み込み
+　　　　　　作業フォルダ内にMicrosoft.PowerShell_profile.ps1
+
+　　　　　　読み込まれている設定ファイルの位置確認
+　　　　　　　「$PROFILE」
+
+　　　　　　全てのユーザーで同一の設定ファイルを読み込ませる
+　　　　　　　　位置
+　　　　　　　　　　C:\Windows\System32\WindowsPowerShell\v1.0
+
+　　　　　　　　ここにprofile.ps1として設定ファイルを置く
+
+　　　　F7キーによるhistory
+
+　　　　TABキーの強み
+　　　　　　$x = ""と適当なものを入れてエンターを押し
+　　　　　　$x.とうってからTABをおすとオブジェクトのプロパティやメソッドを補完できる
+
+　　　　history周り
+　　　　　　Get-History => history => h
+　　　　　　historyの実行
+　　　　　　　「Invoke-History [数字]」=> 「ihy [数字]」
+
+　　　　PowerShell ISE
+　　　　　　機能
+　　　　　　　　シンタックスハイライト
+　　　　　　　　行番号
+　　　　　　　　タブ補完
+　　　　　　　　タグ開き
+　　　　　　　　自動インデント
+
+　　　　　　各種ペイン見方
+
+　　　　　　実行方法
+
+　　　　PowerShellのアクセスについて
+　　　　　　アクセス可能なもの
+　　　　　　　　エイリアスコマンド
+　　　　　　　　環境変数
+　　　　　　　　PowerShellの関数
+　　　　　　　　Windowsレジストリ
+　　　　　　　　変数
+
+　　　　　　Windows PowerShell Provoder(PSProvider)
+　　　　　　　　概要
+　　　　　　　　　　アクセス制限
+
+　　　　　　　　確認方法
+　　　　　　　　　　Get-PSProvider
+
+　　　　　　確認
+　　　　　　　　つまり今までcd等でいけるのはディレクトリ(ドライブ)だけだったが
+　　　　　　　　環境変数とかにも論理的にアクセスという形でいけるようになった
+　　　　　　　　cdの感覚が結構かわる概念をPowerShellは持つ
+　　　　　　　　物理ドライブにアクセスしてるかのような感覚でいろいろアクセスが可能となっている
+
+　　　　　　　　例：環境変数の一覧
+　　　　　　　　　　cd env: => set-location env:
+　　　　　　　　　　dir　　 => get-childitem
+
+　　　　Windowsレジストリキーについて
+　　　　　　レジストリキー　     短縮形　説明
+　　　　　　　HKEY_LOCAL_MACHINE   HKLM　　全てのユーザーに影響するシステムの設定を格納
+　　　　　　　HKEY_CURRENT_USER    HKCU　　現在ログオンしているユーザーの設定を格納
+
+　　Object-Based Scripting with .NET
+　　　　The Microsoft .NET Framework
+　　　　　　Key Components
+　　　　　　　　.NET Framework class library
+　　　　　　　　　　オブジェクト周りやライブラリ周りなど
+
+　　　　　　　　CLR (Common Language Runtime)
+　　　　　　　　　　コンパイル、セキュリティ関係、メモリ管理、例外ハンドルなど
+
+　　　　　　コマンド
+　　　　　　　　get-childitemで得たオブジェクトのプロパティを指定して表示
+　　　　　　　　　「Get-ChildItem FortuneTeller.ps1 | Select-Object name, extension, directory」
+
+　　　　　　　　get-childitemで得たオブジェクトのメンバ(プロパティやメソッド等)の表示
+　　　　　　　　　「Get-ChildItem FortuneTeller.ps1 | Get-Member」
+
+　　　　　　　　get-childitemで得たオブジェクトのメンバ(プロパティやメソッド等)の表示(メンバの指定)
+
+　　　　利用可能なcmdletの取得
+　　　　　「Get-Command -CommandType cmdlet」
+
+　　　　Background Jobsについて
+　　　　　　作成
+　　　　　　　「Start-Job -ScriptBlock {Get-Service}」
+
+　　　　　　リモート上で作成
+　　　　　　　「Start-Job -ScriptBlock {Get-Service -computer [UNC name, IP address]}」
+
+　　　　　　スクリプトで作成
+　　　　　　　「Start-Job -filepath [ファイルパス]」
+
+　　　　　　Administrative Crendentialsで作成
+　　　　　　　「Start-Job -ScriptBlock {Get-Service} -Credential "[ユーザー名]"」
+
+　　　　　　フォアグラウンド化
+　　　　　　　「Get-Job [ジョブID]」
+
+　　　　　　ジョブ一覧
+　　　　　　　「Get-Job」
+
+　　　　　　変数を用意してジョブを実行することによる出力の管理
+　　　　　　　「[変数名] = Start-Job -ScriptBlock {Get-Process}」
+　　　　　　　「Receive-Job [変数名]」
+
+　　　　　　ジョブが終了するのを待つ
+　　　　　　　「Wait-Job [ジョブID]」
+
+　　　　　　　　全てのジョブが終了するのを待つ
+　　　　　　　　　「Get-Job | Wait-Job」
+
+　　　　　　ジョブの一時停止
+　　　　　　　「Stop-Job [ジョブID]」
+
+　　　　　　ジョブの削除
+　　　　　　　「Remove-Job [ジョブID]」
+
+　　　　　　ジョブのスケジューリング(3.0から)
+　　　　　　　　スケジューリング系はp.121, 122参照
+
+　　　　パイプの連携
+　　　　　　「Get-ChildItem | Sort-Object | Where-Object {$_.Length -gt 200}」
+　　　　　　　$_ : 渡されたそれぞれのオブジェクトに対して
+
+　　　　エイリアスの設定
+　　　　　　Set-Alias [新規エイリアス名] [コマンド名]
+
+　　　　　　※注意としてエイリアスの設定に特にバリデーションチェックが行なわれない
+
+Learning how to Write PowerShell Scripts
+　　Working with Variables, Arrays, and Hashes
+　　　　予約後の確認
+　　　　　「Get-Help about_Reserved_Words」
+
+　　　　エスケープ文字
+　　　　　「Get-Help about_Escape_Characters」
+　　　　　　`n, `t, `', `", `0, `a, `b, `f, `r, `v
+
+　　　　スクリプト上での一行の改行
+　　　　　　ステートメントの最後に ` を入れるだけ
+
+　　　　以下詳しい内容は自身のスクリプト参照
+　　　　　　文字列周り
+
+　　　　変数について
+　　　　　　大文字小文字を区別しない
+
+　　　　インクリメントデクリメントあり
+
+　　　　特別な変数
+　　　　　「Get-Help about_automatic_variables」
+　　　　　　$_, $Error, $HOME, $PSHome, $null等
+
+　　　　PowerShellが認識する四つのスコープ
+　　　　　　Local scope, Global scope, Private scope, Script scope
+
+　　Implementing Conditional Logic
+　　　　if文、switch文
+
+　　　　比較演算子
+　　　　　　-eq, -lt, -gt, -ge, -le, -ne
+
+　　　　論理演算子
+　　　　　　-not, !, -and, -or
+
+　　　　文字列比較演算子
+　　　　　　比較演算子にiをつけると基本大文字小文字を区別しない
+　　　　　　比較演算子にcをつけると基本大文字小文字を区別する
+
+　　Using Loops to Process Data
+　　　　繰返し回り
+　　　　詳細はスクリプト
+
+　　Organizing Scripts Using Functions
+　　　　関数とフィルター
+　　　　詳細はスクリプト
+
+Advanced Topics
+　　Working with Files and Folers
+　　　　正規表現
+　　　　詳細はスクリプト
+　　　　パス検索
+
+　　　　ファイルのコピー
+　　　　　　Copy-Item [何を] [どこに]
+
+　　　　ディレクトリのコピー(中身を含む)
+　　　　　　Copy-Item [どのディレクトリを] [どこに] -Recurse
+
+　　　　ファイルの移動
+　　　　　　Move-Item [何を] [どこに] (-force:強制)
+
+　　　　ファイルの削除
+　　　　　　Remove-Item [何を]
+
+　　　　　　オプション
+　　　　　　　　-recurse : 全て
+　　　　　　　　-exclude : を除く(,区切り)
+　　　　　　　　-include : を含む(,区切り)
+　　　　　　　　-whatif  :
+
+　　　　名前の変更
+　　　　　　Rename-Item [パス] [名前]
+
+　　　　ファイルの中身の文字列のサーチ
+　　　　　　Get-Content | Select-String "[文字列]"
+
+　　　　ファイルのリダイレクト
+　　　　　　>, >> 
+
+　　　　ファイルの作成
+　　　　　　New-Item [ファイル名] -type [タイプ]
+
+　　　　　　タイプ
+　　　　　　　　file, directory, ...
+
+　　　　ファイルへの書き込み(上書き)
+　　　　　　Set-Content [ファイルパス] ["何を"]
+　　　　　　[cmdlet] | Out-File [ファイルパス]
+
+　　　　ファイルへの追記
+　　　　　　Add-Content [ファイルパス] ["何を"]
+
+　　　　受け取ったcmdlet outputをリスト形式に変換
+　　　　　　Get-ChildItem | Select-String ps1 | Format-List
+
+　　　　　　Format-Listの引数
+　　　　　　　　-Property
+
+　　　　受け取ったcmdlet outputをテーブル状態に変換
+　　　　　　Get-ChildItem | Select-String ps1 | Format-List
+　　　　　　※Format-Listの引数については-propertyの指定がいらない
+
+　　　　ファイルの読み込み(自動で配列化)
+　　　　　　Get-Content [ファイル名]
+
+　　　　ファイルの中身だけ削除
+　　　　　　Clear-Content [ファイル名]
+
+　　　　Cmdlet outputをHTML化して保存
+　　　　　　Get-Service | Where-Object{$_.status -eq "running"} | ConvertTo-Html Name,
+　　　　　　DisplayName, Status | Set-Content RunningProcess.html
+
+　　　　Cmdlet outputをXML化して保存
+　　　　　　Get-ChildItem | Export-Clixml text.xml
+
+　　　　XMLの読み込み
+　　　　　　Import-Clixml text.xml
+
+　　　　Cmdlet outputをCSV化して保存
+　　　　　　Get-ChildItem | Export-Csv text.csv
+
+　　　　CSVの読み込み
+　　　　　　Import-Csv text.csv
+
+　　　　設定されているプリンターに送信
+　　　　　　※なにも介入されないので注意
+　　　　　　[cmdlet] | Out-Printer
+
+　　　　ウィンドウ形式によるOut-GridView
+　　　　　　[cmdlet] | Out-GridView
+
+　　Basic System Administration
+　　　　Requiresステートメント
+　　　　　　スクリプトの始めに置くことでスクリプトの実行に制限をかけるが可能
+
+　　　　　　#requires -RunAdministrator
+　　　　　　　　Adminで実行しないとだめ
+
+　　　　　　#requires -version 3.0
+　　　　　　　　3.0のPowerShellじゃないとだめ
+
+　　　　プロセスの停止
+　　　　　　ID指定
+　　　　　　　　Stop-Process [Process ID]
+
+　　　　　　名前指定
+　　　　　　　　Stop-Process [Process Name]
+
+　　　　イベントログの表示
+　　　　　　リスト
+　　　　　　　　Get-EventLog -list
+
+　　　　　　各種
+　　　　　　　　Get-EventLog [任意]
+
+　　　　　　最新n行
+　　　　　　　　Get-EventLog [任意] -newest n
+
+　　　　新しいオブジェクトの作成（インスタンス化？）
+　　　　　　$変数名 = New-Object [既存のクラス]
+
+　　　　COMオブジェクトについて(COM実行ファイルとは別物)
+　　　　　　COM : Component Object Model
+
+　　　　レジストリ周りの話
+　　　　　　詳細は下部その他
+
+　　　　WS-MAN
+　　　　　　Web Services for Management
+
+　　　　PowerShellのリモート接続について
+　　　　　　One-to-One Remoting
+　　　　　　　　上部での設定後であれば以下のコマンドで即つながる
+　　　　　　　「Enter-PSSession -computername [IP or domain]」
+
+　　　　　　One-to-Many Remoting
+　　　　　　　　一度に32台まで接続可能
+　　　　　　　「Invoke-Command -ComuputerName [任意, 任意, ...] -command {任意}」
+
+　　　　Windowsのイベント周り
+
+　　Debugging PowerShell Scripts
+　　　　エラーについて
+　　　　　　デフォルトでエラーで止まらないようになっている（できないものはできないというが）
+
+　　　　エラーの設定
+　　　　　　$ErrorActionPreference = ["任意"]
+
+　　　　　　Continue, Stop, SilentlyCointinue, Inquire
+
+　　　　Trap Handlers
+　　　　　　エラー起きたときに入ってくるのがtrap
+
+　　　　try, catchもある
+
+　　　　PowerShellのDebug Mode
+　　　　　「(プロンプト上で)Set-PSDebug -Trace [任意]」
+
+　　　　　　-Trace
+　　　　　　　　0 : trace off
+　　　　　　　　1 : 実行ステートメントの表示
+　　　　　　　　2 : 変数や関数コールの表示
+
+　　　　　　-Step => -trace 1 に同じでステップ実行な感じ
+
+　　　　PowerShell BreakPoint
+　　　　　　もはや普通のデバッガーっぽい(詳細は適当に)
+　　　　　　　　Set-PSBreakpoint
+　　　　　　　　Get-PSBreakpoint
+　　　　　　　　Remove-PSBreakpoint
+　　　　　　　　Enable-PSBreakpoint
+　　　　　　　　Disable-PSBreakpoint
+
+　　　　　　　　s : step-into
+　　　　　　　　v : step-over
+　　　　　　　　o : step-out
+　　　　　　　　c : continue　　　　　　　　
+
+　　PowerShell and the Windows Management Instrumentation (WMI)
+　　　　WMIの概要
+　　　　　　システムの構成要素について情報収集と通知を行うオペレーティングシステムのインタフェースを提供
+
+　　　　　　Distributed Management Task Force(DMTF)の定めたWeb-Based Enterprise Management(WBEM)と
+　　　　　　Common Information Model(CIM)標準のマイクロソフトによる実装
+
+　　　　　　※Distributed Management Task Force(DMTF)
+　　　　　　　　企業やインターネットにおけるIT環境のシステム管理のための標準を策定、保守する標準化団体
+
+　　　　PowerShellとの関係
+　　　　　　PowerShellでWMIを利用できる
+　　　　　　3.0ではよりCIMに近いコマンドも利用可能
+
+　　　　コマンド
+　　　　　　利用可能なWMIの取得
+　　　　　　　「Get-WmiObject -Namespace [root\cimv2(任意)] -list」
+　　　　　　　「Get-WmiObject -list」
+
+　　　　　　クラス単体で確認
+　　　　　　　「Get-WmiObject -Class win32_LogicalDisk」
+　　　　　　　「Get-WmiObject win32_LogicalDisk」
+
+　　　　　　BIOSの確認
+　　　　　　　「Get-WmiObject win32_bios」
+　　　　　　　　※VirtualBoxで動いてるとちゃんとVirtualBoxと表示される
+
+　　　　　　CPUの確認
+　　　　　　　「Get-WmiObject win32_processor」
+
+　　　　　　ネットワークの確認
+　　　　　　　「Get-WmiObject win32_networkprotocol」
+
+　　　　　　.msiでインストールされたアプリケーションの確認
+　　　　　　　「Get-WmiObject win32_product」
+
+　　　　　　リモートでのコマンド
+　　　　　　　　Get-WmiObjectは引数でコンピュータの名前を指定すればそのままいける
+　　　　　　　「Get-WmiObject [任意] -ComputerName [任意]」
+
+　　　　　　ジョブとして追加
+　　　　　　　　Get-WmiObjectの引数に -AsJob を追加してやればジョブに追加される
+
+　　　　　　CIMコマンドはまた今度
+　　　　　　　　基本やれることは一緒、CIMに近くWMIのサポートといった位置づけ
+
+------------------------------------------------------------------------------------------------------------------------
+PowerShellスクリプト仕様
+　　変数名の大文字小文字を区別しない
+　　変数名に使えるのは英語、数字、_
+　　変数名を${}として{}で囲めばかなりいろいろ使える
+　　初期化されてない変数でもアクセス可能なので注意（エラーがでない）
+　　'と"の違いは基本一緒
+　　/演算子は普通にfloat化される
+　　比較の際は後ろの型を前の型に合わせて比較するので別の型でも比較ができる(-eq)
+　　exitコマンドあり
+
+------------------------------------------------------------------------------------------------------------------------
+その他
+
+.NET
+　　.NET framework の略
+
+.ps1拡張子
+　　PowerShellスクリプトの拡張子
+　　バージョンが変わっても拡張子は変わらない
+
+スクリプト実行のポリシー
+　　Restricted　　：全てのスクリプトが実行禁止。
+　　　　　　　　　　PowerShellまたはWindows OSインストール直後のデフォルト設定（Windows Server 2012 R2を除く）
+
+　　AllSigned　 　：署名されているスクリプトのみが実行可能。署名されていないスクリプトは実行禁止
+
+　　RemoteSigned　：ローカルに保存されているスクリプトは実行可能。
+　　　　　　　　　　インターネットからダウンロードしたスクリプト（非ローカルのスクリプト）は、
+　　　　　　　　　　署名されているもののみが実行可能。Windows Server 2012 R2では、この設定がデフォルト
+
+　　Unrestricted　：全てのスクリプトが実行可能。
+　　　　　　　　　　ただしインターネットからダウンロードしたスクリプトは、実行するかどうかが確認されるので、
+　　　　　　　　　　ユーザーが明示的に許可した場合のみ実行される
+
+　　Bypass　　　　：警告やユーザーへの確認なしに、全てのスクリプトが実行可能
+
+　　現在のポリシーの取得
+　　　「Get-ExecutionPolicy」
+
+　　ポリシーの設定
+　　　「Set-ExecutionPolicy [上記任意]」
+
+現在のエイリアス取得
+　「Get-Alias」
+
+管理者権限周りについて
+　　自分で調べるかといったところ
+
+Set-Location
+　　cdはSet-Locationのエイリアス
+
+PowerShellの説明
+　　.NET Frameworkをベースにして設計されたWindows Shell
+
+Windowsのレジストリについて
+　　概要
+　　　　普段OS管理系のソフトウェアで何か設定をする際、設定データの格納先がレジストリとなる
+　　　　つまりそういったソフトウェアの参照先、格納先がWindowsレジストリである
+　　　　デバイスマネージャやネットワーク系のソフトウェアがそういったものにあたる
+　　　　さらに掘るのであればそういったソフトウェアはWin32API等の関数を用いて操作される
+　　　　レジストリはおそらく最終地点であり、API自体が利用するkernel32.dllに操作本体が存在すると思われる
+
+　　　　Windows起動時にOSがアクセスして設定を反映
+
+　　種類(Hiveと呼ばれる、全五種)
+　　　　HKEY_CLASSES_ROOT
+　　　　HKEY_CURRENT_USER
+　　　　HKEY_LOCAL_MACHINE
+　　　　HKEY_USERS
+　　　　HKEY_CURRENT_CONFIG
+
+　　PowerShellから設定できるもの
+　　　　HKEY_LOCAL_MACHINE   HKLM　　全てのユーザーに影響するシステムの設定を格納
+　　　　HKEY_CURRENT_USER    HKCU　　現在ログオンしているユーザーの設定を格納
+
+　　各種用語
+　　　　registry key   : Hiveの直下にくるもの
+　　　　registry value : registry keyの中身となるもの(デフォルトで既定なるものあり)
+
+　　　　registry valueについて
+　　　　　　valueの名前、データの型、値が存在
+　　　　　　REG_SZがNULLで終端する文字列の意
+
+　　PowerShellによる設定方法
+　　　「(設定する論理的Hiveに移動後)New-Item -name [registry key名]」
+　　　「New-ItemProperty [registry key名] -name [registry value名] -Type [データ型名] -value [値]」
+
+　　各Hive概説
+　　　　HKEY_CLASSES_ROOT
+　　　　　　アプリケーションの関連付けや、拡張子、アイコン等の情報、またOLEに関する情報を格納
+　　　　　　関連付けの設定を右クリックからとかでやってるものは実際にはここがいじらると思われる
+
+　　　　HKEY_LOCAL_MACHINE
+　　　　　　HKLMに含まれる4つのサブキーSAM,SECURITY,SOFTWARE,SYSTEMは
+　　　　　　%systemRoot%System32\configのフォルダ中に実際のファイルが存在
+　　　　　　(実際にはバックアップと思われる、ジャーナルファイル的な、つまり書き換えて壊してバックアップされればという話)
+
+
+------------------------------------------------------------------------------------------------------------------------
+英単語
+　　conditional logic　  : 比較演算子
+　　concatenate strinsgs : 文字列の連結
+　　reserved words 　　　: 予約語
+　　character repetition : 文字列の反復
+
+
