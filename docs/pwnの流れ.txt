@@ -1,0 +1,21 @@
+基本socatがよさそう
+
+1. [x86, 32bit]BoFさせてif分内の数値上げて認証突破
+2. [x86, 32bit]if文内で使われる変数を任意の値に設定のBoF(リトルエンディアンと位置計算)からの認証突破
+3. [x86, 32bit]stack内、shellcodeへのリターン
+4. [x86, 32bit, DEP]ret2plt
+5. [x86, 32bit, DEP]ret2libc
+6. [x86, 32bit, DEP, ASLR]fsbからのret2plt
+7. [x86, 32bit, DEP, ASLR]plt内ROP
+8. [x86, 32bit, DEP, ASLR, PIE, RERLO]libcのベースアドレスからのlibcのsystem計算
+
+--------------
+FSBはFSBで別の流れで一つずという感じ
+
+1. [x86, 32bit]stack内が見れる
+2. [x86, 32bit]変数内上書き
+
+--------------
+x86読んだりするReversing系
+
+1. x86読んでみよう
