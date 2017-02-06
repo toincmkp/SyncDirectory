@@ -1,0 +1,10 @@
+#include <sys/personality.h>
+
+int main(int argc, char *argv[])
+{
+personality(ADDR_NO_RANDOMIZE);
+
+execvp("/usr/bin/socat", argv);
+
+return 0;
+}
