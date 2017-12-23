@@ -1,0 +1,23 @@
+・guest-addtionsの追加
+sudo apt-get install -y linux-headers-generic
+（virtualboxからguest-addtionsマウント）
+実行
+（クリップボードとかは何度か再起動すると安定するようになる）
+
+・i386のアーキテクチャ周り
+dpkg --add-architecture i386
+sudo apt-get update
+sudo apt-get install -y gdb socat binutils nasm python git autoconf libtool make libc6:i386 libncurses5:i386 libstdc++6:i386 libseccomp-dev:i386 libc6-dev-i386
+
+・gdb-peda
+git clone https://github.com/longld/peda.git ~/peda
+echo source ~/peda/peda.py >> ~/.gdbinit
+
+・rp++
+wget https://github.com/downloads/0vercl0k/rp/rp-lin-x64
+sudo chmod +x rp-lin-x64 && sudo mv rp-lin-x64 /usr/local/bin
+
+・「システムプログラムの問題が見つかりました」のダイアログの消去
+$ sudo rm /var/crash/*
+$ sudo sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
+
